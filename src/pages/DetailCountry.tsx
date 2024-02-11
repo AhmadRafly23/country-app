@@ -9,7 +9,7 @@ export default function DetailCountry() {
 
   const navigate = useNavigate();
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div className="dark:text-white">Loading...</div>;
 
   return (
     <>

@@ -44,7 +44,7 @@ export default function Home() {
     return result.slice(0, index);
   };
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div className="dark:text-white">Loading...</div>;
 
   return (
     <>
