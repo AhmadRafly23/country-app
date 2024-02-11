@@ -9,7 +9,7 @@ export default function Search({
 }) {
   return (
     <>
-      <div className="w-full md:w-fit px-4 py-2 flex items-center rounded-md border border-gray-100 shadow-md dark:bg-gray-700 dark:border-gray-700 dark:shadow-gray-900">
+      <div className="w-full md:w-fit bg-white px-4 py-2 flex items-center rounded-md border border-gray-100 shadow-md dark:bg-gray-700 dark:border-gray-700 dark:shadow-gray-900">
         <IoIosSearch className="text-2xl text-gray-500 dark:text-white" />
         <input
           type="text"
