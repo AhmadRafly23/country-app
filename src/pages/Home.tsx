@@ -44,7 +44,8 @@ export default function Home() {
     return result.slice(0, index);
   };
 
-  if (isLoading) return <div className="dark:text-white">Loading...</div>;
+  if (isLoading || data === undefined)
+    return <div className="dark:text-white">Loading...</div>;
 
   return (
     <>
@@ -54,7 +55,7 @@ export default function Home() {
       </div>
       <div className="mt-8 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
         {SearchData(data).map((item: any, index: number) => (
-          <Card item={item} index={index} />
+          <Card key={index} item={item} />
         ))}
       </div>
       {notFound && (
@@ -76,13 +77,10 @@ export default function Home() {
   );
 }
 
-function Card({ item, index }: { item: any; index: number }) {
+function Card({ item }: { item: any }) {
   return (
     <Link to={`/detail/${item.name.common}`}>
-      <div
-        key={index}
-        className="border shadow-md rounded-lg overflow-hidden hover:cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out dark:bg-gray-700 dark:text-white dark:border-gray-700 dark:shadow-gray-900"
-      >
+      <div className="border shadow-md rounded-lg overflow-hidden hover:cursor-pointer hover:scale-105 transition-all duration-300 ease-in-out dark:bg-gray-700 dark:text-white dark:border-gray-700 dark:shadow-gray-900">
         <img
           src={item.flags.png}
           alt={item.name.common}

@@ -5,11 +5,12 @@ import { BsArrowLeft } from 'react-icons/bs';
 
 export default function DetailCountry() {
   const { name } = useParams();
-  const { data, isLoading } = useSWR('name/' + name);
+  const { data, isLoading } = useSWR(name ? 'name/' + name : null);
 
   const navigate = useNavigate();
 
-  if (isLoading) return <div className="dark:text-white">Loading...</div>;
+  if (isLoading || data === undefined)
+    return <div className="dark:text-white">Loading...</div>;
 
   return (
     <>
@@ -22,13 +23,13 @@ export default function DetailCountry() {
       </button>
       <div className="mt-8 flex flex-col lg:flex-row items-center justify-between">
         <img
-          src={data[0].flags.png}
-          alt={data[0].name.common}
+          src={data[0]?.flags.png}
+          alt={data[0]?.name.common}
           className="border w-full md:w-[80%] lg:w-[40%] object-cover dark:border-gray-700"
         />
         <div className="w-full md:w-[80%] lg:w-[50%] mt-8 lg:mt-0 flex flex-col justify-center">
           <h1 className="text-2xl md:text-4xl font-bold dark:text-white">
-            {data[0].name.common}
+            {data[0]?.name.common}
           </h1>
           <div className="flex flex-col gap-8 md:gap-0 md:flex-row mt-4 md:mt-8">
             <div className="w-full md:w-1/2 space-y-2">
@@ -36,27 +37,27 @@ export default function DetailCountry() {
                 <span className="font-bold dark:text-gray-200">
                   Native Name:{' '}
                 </span>
-                {data[0].name.common}
+                {data[0]?.name.common}
               </p>
               <p className="text-gray-400">
                 <span className="font-bold dark:text-gray-200">
                   Population:{' '}
                 </span>
-                {data[0].population}
+                {data[0]?.population}
               </p>
               <p className="text-gray-400">
                 <span className="font-bold dark:text-gray-200">Region: </span>
-                {data[0].region}
+                {data[0]?.region}
               </p>
               <p className="text-gray-400">
                 <span className="font-bold dark:text-gray-200">
                   Sub Region:{' '}
                 </span>
-                {data[0].subregion}
+                {data[0]?.subregion}
               </p>
               <p className="text-gray-400">
                 <span className="font-bold dark:text-gray-200">Capital: </span>
-                {data[0].capital}
+                {data[0]?.capital}
               </p>
             </div>
             <div className="w-full md:w-1/2 space-y-2">
@@ -64,13 +65,13 @@ export default function DetailCountry() {
                 <span className="font-bold dark:text-gray-200">
                   Top Level Domain:{' '}
                 </span>
-                {data[0].tld[0]}
+                {data[0]?.tld[0]}
               </p>
               <p className="text-gray-400">
                 <span className="font-bold dark:text-gray-200">
                   Currencies:{' '}
                 </span>
-                {Object.values(data[0].currencies).map(
+                {Object.values(data[0]?.currencies).map(
                   (item: any, index: number) => (
                     <span key={index}>{item.name}</span>
                   )
@@ -80,7 +81,7 @@ export default function DetailCountry() {
                 <span className="font-bold dark:text-gray-200">
                   Languages:{' '}
                 </span>
-                {Object.values(data[0].languages).map(
+                {Object.values(data[0]?.languages).map(
                   (item: any, index: number) => (
                     <span key={index}>{item}</span>
                   )
@@ -92,7 +93,7 @@ export default function DetailCountry() {
             <h2 className="text-lg md:text-xl font-bold mt-8 dark:text-white">
               Border Countries:
             </h2>
-            {data[0].borders ? (
+            {data[0]?.borders ? (
               <div className="flex flex-wrap gap-2 mt-2">
                 {data[0].borders?.map((border: string, index: number) => (
                   <div
