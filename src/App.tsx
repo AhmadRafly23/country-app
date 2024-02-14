@@ -3,6 +3,8 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import DetailCountry from './pages/DetailCountry';
 import useMinHeight from './hooks/useMinHeight';
+import useScrollToTop from './hooks/useScrollToTop';
+import { FaArrowUp } from 'react-icons/fa';
 
 const router = createBrowserRouter([
   {
@@ -17,6 +19,7 @@ const router = createBrowserRouter([
 
 function App() {
   const { navbarRef, offset } = useMinHeight();
+  const { shown, scrollToTop } = useScrollToTop();
   return (
     <>
       <Navbar navbarRef={navbarRef} />
@@ -27,6 +30,14 @@ function App() {
         }}
       >
         <RouterProvider router={router} />
+        {shown && (
+          <button
+            onClick={scrollToTop}
+            className="fixed bottom-8 right-8 p-4 z-20 rounded-full bg-gray-800 text-white dark:bg-gray-200 dark:text-gray-800"
+          >
+            <FaArrowUp size={24} />
+          </button>
+        )}
       </main>
     </>
   );
