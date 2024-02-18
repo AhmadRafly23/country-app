@@ -44,20 +44,22 @@ export default function Home() {
     return result.slice(0, index);
   };
 
-  if (isLoading || data === undefined)
-    return <div className="dark:text-white">Loading...</div>;
-
   return (
     <>
       <div className="flex flex-col gap-6 md:gap-0 md:flex-row justify-between">
         <Search query={query} setQuery={setQuery} />
         <Filter setRegion={setRegion} />
       </div>
-      <div className="mt-8 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
-        {SearchData(data).map((item: any, index: number) => (
-          <Card key={index} item={item} />
-        ))}
-      </div>
+      {isLoading || data === undefined ? (
+        <div className="dark:text-white mt-4">Loading...</div>
+      ) : (
+        <div className="mt-8 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
+          {SearchData(data).map((item: any, index: number) => (
+            <Card key={index} item={item} />
+          ))}
+        </div>
+      )}
+
       {notFound && (
         <div className="flex justify-center mt-8">
           <p className="text-2xl font-bold dark:text-white">No Data Found</p>
